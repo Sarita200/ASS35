@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .list-container{
+            height: 400px;
+            width: 500px;
+            border: 2px solid black;
+            overflow-y: scroll;
+            font-size: 20px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px black;
+            border: none;
+            display: block;
+            margin: auto;
+            margin-top: 60px;
+            background-color: #fce7e7;
+            border-radius: 10px;
+        }
+
+        .todo-Item{
+            background-color: #C40C0C;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 50px;
+            margin: 10px auto;
+            color: white;
+            font-weight: bold;
+            padding-left: 30px;
+        }
+        .action_container{
+            margin: auto 411px;
+        }
+        .input{
+            width: 400px;
+            height: 30px;
+            font-size: 20px;
+            padding: 5px;
+            box-shadow: 0px 0px 10px black;
+            border: none;
+        }
+        .btn{
+            width: 100px;
+            height: 45px;
+            font-size: 20px;
+            padding: 5px;
+            box-shadow: 0px 0px 10px black;
+            border: none;
+            border-radius: 30px;
+            background-color: #C40C0C;
+            color: #ffff;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="list-container" id="list-container">
+        <div class="todo-Item">Task Item</div>
+    </div><br>
+    <div class="action_container">
+        <input type="text" id="input-element" class="input" placeholder="Enter your Task"/>
+        <button onclick="add()" class="btn">ADD</button>
+    </div>
+    
+    <script>
+        let todoList = [];
+
+        const listfromLocalStorage = localStorage.getItem("todoList");
+        if(listfromLocalStorage)
+        {
+            todoList = JSON.parse(listfromLocalStorage);
+            renderToDoList();
+        }
+        function add(){
+            const inputElement = document.getElementById('input-element');
+            todoList.push(inputElement.value);
+
+            localStorage.setItem("todoList",JSON.stringify(todoList));
+
+            inputElement.value = "";
+            renderToDoList();
+        }
+
+        function renderToDoList()
+        {
+            const listContainer = document.getElementById('list-container');
+            listContainer.innerHTML = "";
+
+            for(const todoItem of todoList)
+             {
+                listContainer.innerHTML += `<div class="todo-Item">
+                <input type = "Checkbox"/>
+                ${todoItem}
+            </div>
+                `
+             }
+        }
+    </script>
+</body>
+</html>
